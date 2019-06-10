@@ -44,11 +44,16 @@ namespace Homework190609
             for (int i = 0; i < a.Length; ++i)
                 Console.Write("{0} ", a[i]);
             Console.Write("\nThe odd numbers in the array are: ");
+            int sum = 0;
             for (int i = 0; i < a.Length; ++i)
             {
-                if(a[i]%2 != 0)
-                    Console.Write("{0} ",a[i]);
+                if (a[i] % 2 != 0)
+                {
+                    Console.Write("{0} ", a[i]);
+                    sum += a[i];
+                }
             }
+            Console.WriteLine("\nThe sum of all the odd numbers is: {0}",sum);
             Console.ReadLine();
 
         }
