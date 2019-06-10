@@ -42,28 +42,17 @@ namespace Homework190606
 
             //cau 4
             Console.WriteLine("\nQuestion 4");
-            int check4;
             double result4;
-            power_out(4, 3, out result4, out check4);
+            power_out(4, 3, out result4);
+            Console.WriteLine(result4);
             //Su dung out vi ket qua ko du doan duoc va da duoc gan trong ham
-            if (check4 == 1)
-            {
-                Console.WriteLine("Invalid value");
-            }
-            else
-                Console.WriteLine(result4);
 
             //cau 5
             Console.WriteLine("\nQuestion 5");
-            int check5;
             double result5;
-            power_out_recursive(4, 3, out result5, out check5);
-            if (check5 == 1)
-            {
-                Console.WriteLine("Invalid value");
-            }
-            else
-                Console.WriteLine(result5);
+            power_out_recursive(0, -3, out result5);
+            Console.WriteLine(result5);
+            
             Console.ReadLine();
         }
 
@@ -77,7 +66,7 @@ namespace Homework190606
             return a + b;
         }
 
-        static int add(int a, byte b)
+        static int add(byte a, int b)
         {
             return a + b;
         }
@@ -96,7 +85,7 @@ namespace Homework190606
                 if (a != 0)
                 {
                     x = 1 / a2;
-                    for (int i = 1; i < Math.Abs(b); ++i)
+                    for (int i = 0; i < Math.Abs(b); ++i)
                         x /= a2;
                 }
                 else
@@ -105,7 +94,7 @@ namespace Homework190606
             else
             {
                 x = a2;
-                for (int i = 1; i < Math.Abs(b); ++i)
+                for (int i = 0; i < Math.Abs(b); ++i)
                     x *= a2;
             }
             return x;
@@ -133,9 +122,8 @@ namespace Homework190606
                 return a2 * power_recursive(a, b - 1, out check);
         }
 
-        static double power_out(int a, int b, out double c,out int check)
+        static void power_out(int a, int b, out double c)
         {
-            check = 0;
             c = 0;
             double a2 = a;
             if (b == 0)
@@ -151,7 +139,7 @@ namespace Homework190606
                         c /= a2;
                 }
                 else
-                    check = 1;
+                    Console.WriteLine("Invalid value");
             }
             else if (b > 0)
             {
@@ -159,30 +147,31 @@ namespace Homework190606
                 for (int i = 1; i < Math.Abs(b); ++i)
                     c *= a2;
             }
-            return c;
         }
 
-        static double power_out_recursive(int a, int b, out double c, out int check)
+        static void power_out_recursive(int a, int b, out double c)
         {
-            check = 0;
             c = 0;
             double a2 = a;
             if (b == 0)
-                return c = 1;
+                c = 1;
             else if (b < 0)
             {
                 if (a == 0)
                 {
-                    check = 1;
-                    return c = 0;
+                    Console.WriteLine("Invalid value");
                 }
                 else
                 {
-                    return c = (1 / a2) * power_out_recursive(a, b + 1, out c,out check);
+                    power_out_recursive(a, b + 1, out c);
+                    c = (1 / a2) * c;
                 }
             }
             else
-                return c = a2 * power_out_recursive(a, b - 1, out c, out check);
+            {
+                power_out_recursive(a, b - 1, out c);
+                c = a2 * c;
+            }
         }
     }
 }
