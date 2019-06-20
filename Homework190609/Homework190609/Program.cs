@@ -33,19 +33,19 @@ namespace Homework190609
 
             //cau 4
             Console.Write("Please input the number of elements: ");
-            int n = int.Parse(Console.ReadLine());
+            int n = inputNum();
             int[] a = new int[n];
-            for (int i = 0; i < a.Length; ++i)
+            for (int i = 0; i < n; ++i)
             {
                 Console.Write("Please input the element number {0}: ",i+1);
-                a[i] = int.Parse(Console.ReadLine());
+                a[i] = inputNum();
             }
             Console.Write("Your array is: ");
-            for (int i = 0; i < a.Length; ++i)
+            for (int i = 0; i < n; ++i)
                 Console.Write("{0} ", a[i]);
             Console.Write("\nThe odd numbers in the array are: ");
             int sum = 0;
-            for (int i = 0; i < a.Length; ++i)
+            for (int i = 0; i < n; ++i)
             {
                 if (a[i] % 2 != 0)
                 {
@@ -57,5 +57,12 @@ namespace Homework190609
             Console.ReadLine();
 
         }
+
+        static int inputNum()
+        {
+            Console.Write("Your input is: ");
+            return int.Parse(Console.ReadLine());
+        }
+
     }
 }
