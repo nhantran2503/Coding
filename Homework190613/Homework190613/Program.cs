@@ -14,7 +14,7 @@ namespace Homework190613
             int n = inputNum();
             string[] mssv = new string [n];
             string[] hoten = new string[n];
-            string[] tuoi = new string[n];
+            uint[] tuoi = new uint[n];
             string[] thongtin = new string[n];
             chooseAction(ref mssv, ref hoten, ref tuoi, ref thongtin);
             Console.ReadLine();
@@ -26,7 +26,7 @@ namespace Homework190613
             return int.Parse(Console.ReadLine());
         }
 
-        static void chooseAction(ref string[] mssv, ref string[] hoten, ref string[] tuoi, ref string[] thongtin)
+        static void chooseAction(ref string[] mssv, ref string[] hoten, ref uint[] tuoi, ref string[] thongtin)
         {
             bool ans;
             bool backMain;
@@ -41,6 +41,7 @@ namespace Homework190613
                 backMain = userChoice(ref mssv, ref hoten, ref tuoi, ref thongtin);
                 ans = ifQues("End program",backMain);
             } while (ans);
+            Console.WriteLine("See you again soon!!!");
         }
 
         static bool ifQues(string endMess, bool a)
@@ -55,7 +56,7 @@ namespace Homework190613
         {
             do
             {
-                Console.WriteLine("Do you want to contimue? y/n");
+                Console.WriteLine("\nDo you want to contimue? y/n");
                 string ans = Console.ReadLine().ToLower();
                 switch (ans)
                 {
@@ -71,7 +72,7 @@ namespace Homework190613
             } while (true);
         }
 
-        static bool userChoice(ref string[] mssv, ref string[] hoten, ref string[] tuoi, ref string[] thongtin)
+        static bool userChoice(ref string[] mssv, ref string[] hoten, ref uint[] tuoi, ref string[] thongtin)
         {
             do
             {
@@ -101,17 +102,23 @@ namespace Homework190613
             } while (true);
         }
 
-        static void seeList(string[] mssv, string[] hoten, string[] tuoi, string[] thongtin)
+        static void seeList(string[] mssv, string[] hoten, uint[] tuoi, string[] thongtin)
         {
+            int j = 0;
             for (int i = 0; i < mssv.Length; i++)
             {
-                Console.WriteLine("The info of students:");
-                Console.WriteLine("\t{0}.MSSV: {1}\tHo va ten: {2}\tTuoi: {3}\n\tThong tin: {4}", i + 1, mssv[i], hoten[i],tuoi[i], thongtin[i]);
-                 
+                if ((mssv[i]!=null) || (hoten[i] != null))
+                {
+                    Console.WriteLine("The info of students:");
+                    Console.WriteLine("\t{0}.MSSV: {1}\tHo va ten: {2}\tTuoi: {3}\tThong tin: {4}", i + 1, mssv[i], hoten[i], tuoi[i], thongtin[i]);
+                    j++;
+                }
             }
+            if(j==0)
+                Console.WriteLine("There is no data");
         }
 
-        static void studentFinding(string[] mssv, string[] hoten, string[] tuoi, string[] thongtin)
+        static void studentFinding(string[] mssv, string[] hoten, uint[] tuoi, string[] thongtin)
         {
             bool backMain;
             bool ans;
@@ -127,7 +134,7 @@ namespace Homework190613
             } while (ans);
         }
 
-        static bool userChoice(string[] mssv, string[] hoten, string[] tuoi, string[] thongtin)
+        static bool userChoice(string[] mssv, string[] hoten, uint[] tuoi, string[] thongtin)
         {
             do
             {
@@ -136,15 +143,15 @@ namespace Homework190613
                 {
                     case "1":
                         Console.WriteLine("You chose finding by MSSV");
-                        MSSVfinding("MSSV", "Ho va ten", mssv, hoten, tuoi, thongtin);
+                        Studentfinding("MSSV", "Ho va ten", mssv, hoten, tuoi, thongtin);
                         return true;
                     case "2":
                         Console.WriteLine("You chose finding by ho va ten");
-                        MSSVfinding("Ho va ten", "MSSV",hoten, mssv, tuoi, thongtin);
+                        Studentfinding("Ho va ten", "MSSV",hoten, mssv, tuoi, thongtin);
                         return true;
                     case "3":
                         Console.WriteLine("You chose finding by MSSV and ho va ten");
-                        MSSVfinding("MSSV and Hoten", mssv, hoten);
+                        Studentfinding("MSSV and Hoten", mssv, hoten);
                         return true;
                     case "x":
                     case "quit":
@@ -156,17 +163,17 @@ namespace Homework190613
             } while (true);
         }
 
-        static void MSSVfinding(string mess1, string mess2, string[] a, string[] b, string[] c, string [] d)
+        static void Studentfinding(string mess1, string mess2, string[] a, string[] b, uint[] tuoi, string [] thongtin)
         {
             Console.Write("Input {0}: ",mess1);
             string find = Console.ReadLine();
             int j = 0;
             for (int i=0; (i < a.Length)&&(j<3); i++)
             {
-                if(a[i] == find)
+                if(a[i].ToLower().Contains(find.ToLower()))
                 {
                     Console.WriteLine("The student you want to find is: ");
-                    Console.WriteLine("\t{0}.{1}: {3}\t{2}: {4}\tTuoi: {5}\n\tThong tin: {6}",j+1,mess1,mess2,a[i],b[i],c[i],d[i]);
+                    Console.WriteLine("\t{0}) {1}: {3}\t{2}: {4}\tTuoi: {5}\tThong tin: {6}",j+1,mess1,mess2,a[i],b[i],tuoi[i],thongtin[i]);
                     j++;
                 }
             }
@@ -174,7 +181,7 @@ namespace Homework190613
                 Console.WriteLine("Data not found");
         }
 
-        static void MSSVfinding(string mess, string[] mssv, string[] hoten)
+        static void Studentfinding(string mess, string[] mssv, string[] hoten)
         {
             Console.WriteLine("Input {0}", mess);
             Console.Write("\tMSSV:");
@@ -183,9 +190,9 @@ namespace Homework190613
             string findhoten = Console.ReadLine();
             for (int i = 0, j = 0; (i < mssv.Length) && (j < 3); i++)
             {
-                if (mssv[i] == findmssv)
+                if (mssv[i].Contains(findmssv))
                 {
-                    if (hoten[i] == findhoten)
+                    if (hoten[i].ToLower().Contains(findhoten.ToLower()))
                     {
                         Console.WriteLine("The student you want to find is: ");
                         Console.WriteLine("\t{0}.MSSV: {1}\tHo va ten: {2}", j + 1, mssv[i], hoten[i]);
@@ -197,25 +204,53 @@ namespace Homework190613
             }
         }
 
-        static void studentInput(ref string[] mssv, ref string[] hoten, ref string[] tuoi, ref string[] thongtin)
+        static void studentInput(ref string[] mssv, ref string[] hoten, ref uint[] tuoi, ref string[] thongtin)
         {
             for (int i = 0; i< mssv.Length; ++i)
             {
-                Console.WriteLine("Student {0}'s MSSV", i+1);
+                Console.WriteLine("Input the information of student number {0}",i+1);
+                Console.Write("MSSV", i+1);
                 inputInfor(mssv, i);
-                Console.WriteLine("Student {0}'s Name", i + 1);
+                Console.Write("Name", i + 1);
                 inputInfor(hoten, i);
-                Console.WriteLine("Student {0}'s Age", i + 1);
+                Console.Write("Age", i + 1);
                 inputInfor(tuoi, i);
-                Console.WriteLine("Student {0}'s Information", i + 1);
+                Console.Write("Information", i + 1);
                 inputInfor(thongtin, i);
             }
         }
 
         static void inputInfor(string[] arr, int i)
         {
-            Console.Write("\nYou enter:\t");
-            arr[i] = Console.ReadLine();
+            do
+            {
+                Console.Write("\t");
+                string input = Console.ReadLine();
+                if (input.Trim().Length > 0)
+                {
+                    arr[i] = input;
+                    break;
+                }
+                else
+                    Console.Write("Please input again");
+            } while (true);
+        }
+
+        static void inputInfor(uint[] arr, int i)
+        {
+            do
+            {
+                Console.Write("\t");
+                uint n;
+                bool isOK = uint.TryParse(Console.ReadLine(), out n);
+                if (isOK && (n<100) && (n>20))
+                {
+                    arr[i] = n;
+                    break;
+                }
+                else
+                    Console.Write("Please input again");
+            } while (true);
         }
     }
 }
