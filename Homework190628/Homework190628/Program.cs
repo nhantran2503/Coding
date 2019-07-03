@@ -39,7 +39,6 @@ namespace Homework190628
 
         static Company switchCheck(int check)
         {
-            Company company;
             switch (check)
             {
                 case 1:
@@ -50,7 +49,7 @@ namespace Homework190628
                     return loopCheck();
                 default:
                     Console.WriteLine("System crash!! Please check the number of the method");
-                    return company = 0;
+                    return 0;
             }
         }
 
@@ -109,10 +108,9 @@ namespace Homework190628
             Array companies = Enum.GetValues(typeof(Company));
             for (int i = 0; i < companies.Length; i++)
             {
-                if(i<4)
-                    if (i == (int) value)
-                        Console.WriteLine("The next company of the list is: {0}", companies.GetValue(i+1));
-                else if (i == 3 && (int)value ==4 )
+                if(i + 1 < companies.Length)
+                    Console.WriteLine("The next company of the list is: {0}", companies.GetValue(i+1));
+                else if (i > 0)
                     Console.WriteLine("The next company of the list is: {0}", companies.GetValue(0));
             }
 
@@ -123,7 +121,7 @@ namespace Homework190628
             string check;
             do
             {
-                enumCheck();
+                //enumCheck();
                 nextEnum();
                 do
                 {
