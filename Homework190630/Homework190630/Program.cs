@@ -272,6 +272,8 @@ namespace Homework190630
 
         static bool userFind(List<Student> list)
         {
+            string findID;
+            string findName;
             do
             {
                 Console.Write("Your choice: ");
@@ -279,15 +281,19 @@ namespace Homework190630
                 {
                     case "1":
                         Console.WriteLine("You chose finding by ID");
-                        IDfinding(list);
+                        findID = userInput("ID");
+                        IDfinding(list, findID);
                         return true;
                     case "2":
                         Console.WriteLine("You chose finding by name");
-                        Namefinding(list);
+                        findName = userInput("name");
+                        Namefinding(list, findName);
                         return true;
                     case "3":
                         Console.WriteLine("You chose finding by ID and name");
-                        Studentfinding(list);
+                        findID = userInput("ID");
+                        findName = userInput("name");
+                        Studentfinding(list, findID, findName);
                         return true;
                     case "x":
                     case "quit":
@@ -299,10 +305,14 @@ namespace Homework190630
             } while (true);
         }
 
-        static void IDfinding(List<Student> list)
+        static string userInput(string mess)
         {
-            Console.Write("Input ID: ");
-            string find = Console.ReadLine();
+            Console.Write("Input {0}: ", mess);
+            return Console.ReadLine();
+        }
+
+        static void IDfinding(List<Student> list, string find)
+        {
             int j = 0;
             Console.WriteLine("The students you want to find are: ");
             for (int i = 0; (i < list.Count) && (j < 3); i++)
@@ -317,10 +327,8 @@ namespace Homework190630
                 Console.WriteLine("Data not found");
         }
 
-        static void Namefinding(List<Student> list)
+        static void Namefinding(List<Student> list, string find)
         {
-            Console.Write("Input the name: ");
-            string find = Console.ReadLine();
             int j = 0;
             Console.WriteLine("The students you want to find are: ");
             for (int i = 0; (i < list.Count) && (j < 3); i++)
@@ -335,13 +343,8 @@ namespace Homework190630
                 Console.WriteLine("Data not found");
         }
 
-        static void Studentfinding(List<Student> list)
+        static void Studentfinding(List<Student> list, string findID, string findName)
         {
-            Console.WriteLine("Input ID and Name");
-            Console.Write("\tID: ");
-            string findID = Console.ReadLine();
-            Console.Write("\tName: ");
-            string findName = Console.ReadLine();
             Console.WriteLine("The student you want to find are: ");
             for (int i = 0, j = 0; (i < list.Count) && (j < 3); i++)
             {
